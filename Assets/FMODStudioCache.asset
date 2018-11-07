@@ -1,0 +1,81 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d32cf7c32a3ed8347bac48ef5ed56d82, type: 3}
+  m_Name: FMODStudioCache
+  m_EditorClassIdentifier: 
+  EditorBanks:
+  - {fileID: 114909039997179156}
+  - {fileID: 114447612547010946}
+  EditorEvents:
+  - {fileID: 114515408549883422}
+  MasterBankRef: {fileID: 114447612547010946}
+  StringsBankRef: {fileID: 114909039997179156}
+  stringsBankWriteTime: 636771435864544133
+  cacheVersion: 2
+--- !u!114 &114447612547010946
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: C:\Users\nerdy\Documents\GitJam\recess-zombie-escape-game\Assets\Audio\recesszombieescape\Build\Desktop\Master
+    Bank.bank
+  lastModified: 636771435864484061
+  LoadResult: 0
+  FileSizes:
+  - Name: Desktop
+    Value: 13116
+  Exists: 1
+--- !u!114 &114515408549883422
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: event:/Menu/ButtonPress
+  guid: be787e913d2f704db977043711470834
+  Banks:
+  - {fileID: 114447612547010946}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 0
+--- !u!114 &114909039997179156
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: Assets\Audio\recesszombieescape\Build\Desktop\Master Bank.strings.bank
+  lastModified: 636771435864544133
+  LoadResult: 0
+  FileSizes:
+  - Name: Desktop
+    Value: 726
+  Exists: 1

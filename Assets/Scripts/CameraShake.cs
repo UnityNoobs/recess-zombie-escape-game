@@ -14,7 +14,16 @@ public class CameraShake : MonoBehaviour
     public float shakeAmount = 0.7f;
     public float decreaseFactor = 1.0f;
 
+    public     
+
     Vector3 originalPos;
+
+
+    private void Start()
+    {
+        enabled = false;
+    }
+
 
     void Awake()
     {
@@ -30,6 +39,15 @@ public class CameraShake : MonoBehaviour
     }
 
     void Update()
+    {
+        if (Input.GetKeyUp(KeyCode.Space))
+        {
+
+        }
+        EnableShake();
+    }
+
+    private void EnableShake()
     {
         if (shakeDuration > 0)
         {

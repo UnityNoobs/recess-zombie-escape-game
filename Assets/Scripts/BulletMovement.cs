@@ -2,35 +2,37 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum BulletDirection { Left, Right }
-
 public class BulletMovement : MonoBehaviour {
-    public float velocity;
-    public BulletDirection bulletDirection;
-    private Rigidbody2D rb;
+    
+    // Movement options
+    public float speed = 20f;
+    public float direction = 1f;
 
-    // Use this for initialization
-    void Awake () {
-        rb = GetComponent<Rigidbody2D>();
-    }
+    // Raycast options
+    public float distance = 0.5f;
+    public string enemyTag = "Enemy";
+    public LayerMask collisionLayer;
 
-    // We don't need this...
-    public float GetDirection(BulletDirection direction)
-    {
-        if (direction == BulletDirection.Left)
-        {
-            return -1f;
-        }
-        if (direction == BulletDirection.Right)
-        {
-            return 1f;
-        }
-        return 0f;
-    }
-	
 	// Update is called once per frame
-	void FixedUpdate () {
-        float direction = GetDirection(bulletDirection);
-        rb.AddForce((transform.right * direction) * velocity * Time.deltaTime, ForceMode2D.Impulse);
+	void Update () {
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, transform.right * direction, distance, collisionLayer);
+        // On collision
+        if(hit.collider != null)
+        {
+            if (hit.collider.CompareTag(enemyTag))
+            {
+                // Handle enemy collision...
+            }
+            // Handle bullet collision
+            DestroyBullet();
+        }
+        // Bullet movement
+        transform.Translate(Vector2.right * direction * speed * Time.deltaTime );
+    }
+
+    public void DestroyBullet()
+    {
+        // Handle particles and effects..
+        Destroy(gameObject);
     }
 }

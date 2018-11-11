@@ -14,15 +14,6 @@ public class PlayerMovement : MonoBehaviour {
     public Transform groundCheck;
     public LayerMask groundLayer;
 
-    /*
-    [Header("Player attack")]
-    public KeyCode Attack1;
-    public KeyCode switchWeapon;
-    public float fireRate;
-    public GameObject attack1Projectile;
-    private float nextFire = 0f;
-    */
-
     private Rigidbody2D playerRb;
     private bool isGrounded = false;
     private bool facingRight = true;
@@ -85,19 +76,4 @@ public class PlayerMovement : MonoBehaviour {
         scaler.x *= -1;
         transform.localScale = scaler;
     }
-
-    // TODO: Refactoring, move to different script..
-    /*
-    private void PlayerAttack()
-    {
-        if (Input.GetKey(Attack1))
-        {
-            if (Time.time > nextFire)
-            {
-                Instantiate(attack1Projectile, transform.position, transform.rotation);
-            }
-            nextFire = Time.time + fireRate;
-        }
-    }
-    */
 }

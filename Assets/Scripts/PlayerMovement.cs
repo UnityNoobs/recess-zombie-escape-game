@@ -4,45 +4,54 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour {
     [Header("Platform options")]
-
-    public float runSpeed = 4f;
-    public float maxRunSpeed = 10f;
-    public float jumpVelocity = 6f;
+    public float runSpeed = 6f;
+    public float jumpVelocity = 8f;
     public float jumpMultiplier = 2f;
     public float fallMultiplier = 2.5f;
 
+    // Ground detection
+    public float groundRadius = 0.5f;
+    public Transform groundCheck;
+    public LayerMask groundLayer;
+
+    /*
     [Header("Player attack")]
     public KeyCode Attack1;
     public KeyCode switchWeapon;
     public float fireRate;
     public GameObject attack1Projectile;
     private float nextFire = 0f;
-
-
-    //[Header("Player controls")]
-
-    //public KeyCode keyJump;
-    //public KeyCode keyMoveLeft;
-    //public KeyCode keyMoveRight;
-
+    */
 
     private Rigidbody2D playerRb;
-    private bool jump = false;
+    private bool isGrounded = false;
     private bool facingRight = true;
+    private float direction;
+    private float jumpInput;
 
     // Use this for initialization
-    void Start()
+    void Awake()
     {
-        
         playerRb = GetComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        float hAxis = Input.GetAxis("Horizontal");
-        HandleInput(hAxis);
-        Flip(hAxis);
+        isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundRadius, groundLayer);
+
+        // Handle movement
+        direction = Input.GetAxis("Horizontal");
+        playerRb.velocity = new Vector2(direction * runSpeed, playerRb.velocity.y);
+
+        // Handle jumping
+        HandleJump();
+
+        // Handle sprite flip
+        if(facingRight && direction > 0 || !facingRight && direction < 0)
+        {
+            Flip();
+        }
     }
 
     private void UpdateJumpVelocity(float multiplier)
@@ -50,66 +59,37 @@ public class PlayerMovement : MonoBehaviour {
         playerRb.velocity += Vector2.up * Physics2D.gravity.y * (multiplier - 1) * Time.deltaTime;
     }
 
-    private void HandleInput(float hAxis)
+    private void HandleJump()
     {
-        
-        playerRb.AddForce(Vector2.right * runSpeed * hAxis);
-        if(Mathf.Abs(playerRb.velocity.x) > maxRunSpeed) { playerRb.velocity = new Vector2(Mathf.Sign(playerRb.velocity.x) * maxRunSpeed, playerRb.velocity.y); }
-        // Left movement behavior 
-        /*if (Input.GetKey(keyMoveLeft))
-        {
-            playerRb.AddForce(Vector2.left * runSpeed);
-        }
+        jumpInput = Input.GetAxis("Jump");
 
-        // Right movement behavior
-        if (Input.GetKey(keyMoveRight))
+        if (playerRb.velocity.y == 0 && jumpInput != 0 && isGrounded)
         {
-            playerRb.AddForce(Vector2.right * runSpeed);
-        }
-        */
-        // Jump behavior
-
-        if (playerRb.velocity.y == 0 && Input.GetAxis("Jump") !=0)
-        {
-
             playerRb.velocity = new Vector2(playerRb.velocity.x, jumpVelocity);
-            jump = true;
+            Debug.Log(isGrounded);
         }
-
         if (playerRb.velocity.y < 0)
         {
             UpdateJumpVelocity(fallMultiplier);
         }
-        else if (playerRb.velocity.y > 0 && Input.GetAxis("Jump") == 0)
+        else if (playerRb.velocity.y > 0 && jumpInput == 0)
         {
             UpdateJumpVelocity(jumpMultiplier);
         }
     }
 
-    private void Flip(float hAxis)
+    private void Flip()
     {
-        if(hAxis > 0 && !facingRight || hAxis < 0 && facingRight)
-        {
-            facingRight = !facingRight;
-            Vector3 theScale = transform.localScale;
-            theScale.x *= -1;
-            transform.localScale = theScale;
-        }
+        facingRight = !facingRight;
+        Vector3 scaler = transform.localScale;
+        scaler.x *= -1;
+        transform.localScale = scaler;
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if(collision.gameObject.tag == "ground" && jump)
-        {
-            Debug.Log("Landed");
-            jump = false;
-            //if (Input.GetAxis("Horizontal") == 0) { playerRb.velocity = new Vector2(0, 0); }
-        }
-    }
-
+    // TODO: Refactoring, move to different script..
+    /*
     private void PlayerAttack()
     {
-        // Player Attack
         if (Input.GetKey(Attack1))
         {
             if (Time.time > nextFire)
@@ -119,4 +99,5 @@ public class PlayerMovement : MonoBehaviour {
             nextFire = Time.time + fireRate;
         }
     }
+    */
 }

@@ -8,15 +8,15 @@ public class PlayerMovement : MonoBehaviour {
     public float jumpVelocity = 8f;
     public float jumpMultiplier = 2f;
     public float fallMultiplier = 2.5f;
+    public bool facingRight = true;
 
-    // Ground detection
+    [Header("Platform options")]
     public float groundRadius = 0.5f;
     public Transform groundCheck;
     public LayerMask groundLayer;
 
     private Rigidbody2D playerRb;
     private bool isGrounded = false;
-    private bool facingRight = true;
     private float direction;
     private float jumpInput;
 
@@ -39,7 +39,10 @@ public class PlayerMovement : MonoBehaviour {
         HandleJump();
 
         // Handle sprite flip
-        if(facingRight && direction > 0 || !facingRight && direction < 0)
+        if(facingRight && direction > 0)
+        {
+            Flip();
+        } else if (!facingRight && direction < 0)
         {
             Flip();
         }

@@ -39,10 +39,10 @@ public class PlayerMovement : MonoBehaviour {
         HandleJump();
 
         // Handle sprite flip
-        if(facingRight && direction > 0)
+        if(facingRight && direction < 0)
         {
             Flip();
-        } else if (!facingRight && direction < 0)
+        } else if (!facingRight && direction > 0)
         {
             Flip();
         }

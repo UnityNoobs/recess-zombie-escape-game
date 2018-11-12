@@ -23,9 +23,10 @@ public class PlayerAttack : MonoBehaviour {
     private void TriggerAttack()
     {
         if (Input.GetKeyDown(KeyCode.E))
-        {
+        { 
+            // TODO: Use object poll
             projectile = Instantiate(projectilePrefab, transform.position, transform.rotation);
-            projectile.GetComponent<BulletMovement>().direction = player.facingRight ? -1 : 1;
+            projectile.GetComponent<BulletMovement>().direction = player.facingRight ? 1 : -1;
         }
     }
 }

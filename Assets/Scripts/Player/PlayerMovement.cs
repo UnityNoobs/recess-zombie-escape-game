@@ -16,6 +16,7 @@ public class PlayerMovement : MonoBehaviour {
     public LayerMask groundLayer;
 
     private Rigidbody2D playerRb;
+    private SpriteRenderer sprite;
     private bool isGrounded = false;
     private float direction;
     private float jumpInput;
@@ -24,6 +25,8 @@ public class PlayerMovement : MonoBehaviour {
     void Awake()
     {
         playerRb = GetComponent<Rigidbody2D>();
+        sprite = GetComponent<SpriteRenderer>();
+        sprite.flipX = !facingRight;
     }
 
     // Update is called once per frame
@@ -39,10 +42,7 @@ public class PlayerMovement : MonoBehaviour {
         HandleJump();
 
         // Handle sprite flip
-        if(facingRight && direction < 0)
-        {
-            Flip();
-        } else if (!facingRight && direction > 0)
+        if(facingRight && direction < 0 || !facingRight && direction > 0)
         {
             Flip();
         }
@@ -60,7 +60,6 @@ public class PlayerMovement : MonoBehaviour {
         if (playerRb.velocity.y == 0 && jumpInput != 0 && isGrounded)
         {
             playerRb.velocity = new Vector2(playerRb.velocity.x, jumpVelocity);
-            Debug.Log(isGrounded);
         }
         if (playerRb.velocity.y < 0)
         {
@@ -74,9 +73,7 @@ public class PlayerMovement : MonoBehaviour {
 
     private void Flip()
     {
-        facingRight = !facingRight;
-        Vector3 scaler = transform.localScale;
-        scaler.x *= -1;
-        transform.localScale = scaler;
+        facingRight = sprite.flipX;
+        sprite.flipX = !facingRight;
     }
 }

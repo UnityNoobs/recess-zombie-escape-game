@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class PlayerAttack : MonoBehaviour {
 
-    [Header("Player attack")]
+    [Header("Attack options")]
     public GameObject projectilePrefab;
+    public string attackButton = "Attack_p1";
+
     private GameObject projectile;
     private PlayerMovement player;
 
@@ -16,17 +18,18 @@ public class PlayerAttack : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        TriggerAttack();
+        if (Input.GetButtonDown(attackButton))
+        {
+            TriggerAttack();
+        }
 	}
 
     // TODO: Refactoring
     private void TriggerAttack()
     {
-        if (Input.GetKeyDown(KeyCode.E))
-        { 
-            // TODO: Use object poll
-            projectile = Instantiate(projectilePrefab, transform.position, transform.rotation);
-            projectile.GetComponent<BulletMovement>().direction = player.facingRight ? 1 : -1;
-        }
+        // TODO: Use object poll
+        float direction = player.GetDirection();
+        projectile = Instantiate(projectilePrefab, transform.position, transform.rotation);
+        projectile.GetComponent<BulletMovement>().direction = direction;
     }
 }

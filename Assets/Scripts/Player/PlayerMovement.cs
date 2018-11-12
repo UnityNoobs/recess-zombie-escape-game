@@ -10,8 +10,13 @@ public class PlayerMovement : MonoBehaviour {
     public float fallMultiplier = 2.5f;
     public bool facingRight = true;
 
-    [Header("Platform options")]
-    public float groundRadius = 0.5f;
+    [Header("Platform controls")]
+    public int playerIndex = 1;
+    public string movementInput = "Horizontal_p1";
+    public string jumpButton = "Jump_p1";
+
+    [Header("Ground detection")]
+    public float groundRadius = 0.15f;
     public Transform groundCheck;
     public LayerMask groundLayer;
 
@@ -35,9 +40,9 @@ public class PlayerMovement : MonoBehaviour {
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundRadius, groundLayer);
 
         // Handle movement
-        direction = Input.GetAxis("Horizontal");
+        direction = Input.GetAxis(movementInput);
         playerRb.velocity = new Vector2(direction * runSpeed, playerRb.velocity.y);
-
+        
         // Handle jumping
         HandleJump();
 
@@ -55,7 +60,7 @@ public class PlayerMovement : MonoBehaviour {
 
     private void HandleJump()
     {
-        jumpInput = Input.GetAxis("Jump");
+        jumpInput = Input.GetAxis(jumpButton);
 
         if (playerRb.velocity.y == 0 && jumpInput != 0 && isGrounded)
         {
@@ -75,5 +80,10 @@ public class PlayerMovement : MonoBehaviour {
     {
         facingRight = sprite.flipX;
         sprite.flipX = !facingRight;
+    }
+
+    public float GetDirection()
+    {
+        return facingRight ? 1 : -1;
     }
 }

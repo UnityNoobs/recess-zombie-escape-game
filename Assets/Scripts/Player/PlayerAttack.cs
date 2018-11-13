@@ -29,7 +29,7 @@ public class PlayerAttack : MonoBehaviour {
     {
         // TODO: Use object poll
         float direction = player.GetDirection();
-        projectile = Instantiate(projectilePrefab, transform.position, transform.rotation);
+        projectile = ObjectPool.instance.SpawnFromPool("bullets", gameObject.transform.position, gameObject.transform.rotation);
         projectile.GetComponent<BulletMovement>().direction = direction;
     }
 }

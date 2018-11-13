@@ -17,12 +17,12 @@ public class ZombieHorde : MonoBehaviour {
     [Tooltip("Touching the horde means an instant kill")]
     public bool instantKill = false;
 
-    private Rigidbody2D rb;
+    //private Rigidbody2D rb;
     //The Actual Speed is the speed after modifiers are accounted for
     private float hordeActualSpeed;
     private float boostTimer = 0f;
     void Start () {
-        rb = gameObject.GetComponent<Rigidbody2D>();
+        //rb = gameObject.GetComponent<Rigidbody2D>();
         hordeActualSpeed = hordeSpeed;
 	}
 	

@@ -33,6 +33,9 @@ public class BulletMovement : MonoBehaviour {
     public void DestroyBullet()
     {
         // Handle particles and effects..
-        Destroy(gameObject);
+        //Destroy(gameObject);
+        //Objects pooled cannot be destroyed, only set to inactive.
+        //This is because the object is reused.
+        gameObject.SetActive(false);
     }
 }

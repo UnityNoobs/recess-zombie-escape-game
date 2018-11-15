@@ -4,14 +4,15 @@ using UnityEngine;
 
 public class PlayerINV : MonoBehaviour {
     public List<Weapon> weapons = new List<Weapon>();
+    public int playerNumber = 1;
     private int currentWeaponIndex = 0;
 	// Update is called once per frame
 	void Update () {
-		if(Input.GetAxis("P1WeaponScroll") > 0)
+		if(Input.GetAxis("P"+playerNumber+"WeaponScroll") > 0)
         {
             currentWeaponIndex = NextWeaponIndex();
         }
-        if (Input.GetAxis("P1WeaponScroll") < 0)
+        if (Input.GetAxis("P" + playerNumber + "WeaponScroll") < 0)
         {
             currentWeaponIndex = PrevWeaponIndex();
         }

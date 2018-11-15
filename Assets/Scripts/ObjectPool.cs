@@ -13,7 +13,7 @@ public class ObjectPool : MonoBehaviour {
     public List<Pool> pools;
     public Dictionary<string, Queue<GameObject>> poolDictionary;
 
-    public static ObjectPool instance;
+    public  static ObjectPool instance;
 
     private void Awake()
     {

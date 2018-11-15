@@ -5,7 +5,6 @@ using UnityEngine;
 public class PlayerAttack : MonoBehaviour {
 
     [Header("Attack options")]
-    public GameObject projectilePrefab;
     public string attackButton = "Attack_p1";
 
     private GameObject projectile;
@@ -29,7 +28,7 @@ public class PlayerAttack : MonoBehaviour {
     {
         // TODO: Use object poll
         float direction = player.GetDirection();
-        projectile = ObjectPool.instance.SpawnFromPool("bullets", gameObject.transform.position, gameObject.transform.rotation);
+        projectile = ObjectPool.instance.SpawnFromPool("Projectiles", gameObject.transform.position, gameObject.transform.rotation);
         projectile.GetComponent<BulletMovement>().direction = direction;
     }
 }

@@ -10,21 +10,25 @@ public class PlayerAttack : MonoBehaviour {
 
     private GameObject projectile;
     private PlayerMovement player;
+    private PlayerINV playerInv;
 
     // Use this for initialization
     void Awake () {
         player = GetComponent<PlayerMovement>();
-	}
+        playerInv = gameObject.GetComponent<PlayerINV>();
+
+    }
 	
 	// Update is called once per frame
 	void Update () {
         if (Input.GetButtonDown(attackButton))
         {
-            TriggerAttack();
+            if (playerInv.PlayerHasWeapon()) { playerInv.getCurrentWeapon().Fire(player.GetDirection(),gameObject.transform); }
         }
 	}
 
     // TODO: Refactoring
+    /*
     private void TriggerAttack()
     {
         // TODO: Use object poll
@@ -32,4 +36,5 @@ public class PlayerAttack : MonoBehaviour {
         projectile = ObjectPool.instance.SpawnFromPool("bullets", gameObject.transform.position, gameObject.transform.rotation);
         projectile.GetComponent<BulletMovement>().direction = direction;
     }
+    */
 }

@@ -54,11 +54,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 20
   direction: 1
+  impactForce: 80
   distance: 0.5
   enemyTag: Enemy
   collisionLayer:
     serializedVersion: 2
-    m_Bits: 256
+    m_Bits: 768
 --- !u!212 &212508686216414140
 SpriteRenderer:
   m_ObjectHideFlags: 1

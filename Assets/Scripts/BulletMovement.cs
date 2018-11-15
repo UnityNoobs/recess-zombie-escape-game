@@ -7,6 +7,9 @@ public class BulletMovement : MonoBehaviour {
     // Movement options
     public float speed = 20f;
     public float direction = 1f;
+    // Force used for the push-back effect
+    [Range(1f, 100f)]
+    public float impactForce = 10f;
 
     // Raycast options
     public float distance = 0.5f;
@@ -22,6 +25,10 @@ public class BulletMovement : MonoBehaviour {
             if (hit.collider.CompareTag(enemyTag))
             {
                 // Handle enemy collision...
+                // TODO: Simplify this line :(
+                hit.collider.gameObject.GetComponent<EnemyBehavior>().HandleImpact(direction, impactForce);
+                Debug.Log("Enemy hit!");
+                
             }
             // Handle bullet collision
             DestroyBullet();

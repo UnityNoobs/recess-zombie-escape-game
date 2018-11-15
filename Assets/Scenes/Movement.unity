@@ -567,8 +567,9 @@ GameObject:
   - component: {fileID: 718727775}
   - component: {fileID: 718727774}
   - component: {fileID: 718727773}
+  - component: {fileID: 718727776}
   m_Layer: 0
-  m_Name: Weapon (1)
+  m_Name: Blue
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -585,7 +586,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1600bdf0e6265a141903cccfee952e46, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WeaponName: Blue
+  WeaponName: Blue Tornado
   bullet: {fileID: 1919936878330094, guid: 282172dca51faca419e253e8ed9e978c, type: 2}
 --- !u!212 &718727774
 SpriteRenderer:
@@ -646,6 +647,31 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!61 &718727776
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 718727772}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1, y: 1}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1}
+  m_EdgeRadius: 0
 --- !u!1 &752429535
 GameObject:
   m_ObjectHideFlags: 0
@@ -757,8 +783,9 @@ GameObject:
   - component: {fileID: 878176455}
   - component: {fileID: 878176454}
   - component: {fileID: 878176453}
+  - component: {fileID: 878176456}
   m_Layer: 0
-  m_Name: Weapon (2)
+  m_Name: Yellow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -775,7 +802,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f445a4d6773066545b7513ca19ae1bc9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WeaponName: Yellow
+  WeaponName: Yellow Pew Pew
   bullet: {fileID: 1919936878330094, guid: 282172dca51faca419e253e8ed9e978c, type: 2}
 --- !u!212 &878176454
 SpriteRenderer:
@@ -836,6 +863,31 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!61 &878176456
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 878176452}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1, y: 1}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1}
+  m_EdgeRadius: 0
 --- !u!1 &950072254
 GameObject:
   m_ObjectHideFlags: 0
@@ -850,6 +902,7 @@ GameObject:
   - component: {fileID: 950072257}
   - component: {fileID: 950072256}
   - component: {fileID: 950072255}
+  - component: {fileID: 950072261}
   m_Layer: 0
   m_Name: Player2
   m_TagString: Player
@@ -1005,6 +1058,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &950072261
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 950072254}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b47d374dd116ad408bf7f7e1a26b0c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weapons: []
+  playerNumber: 2
 --- !u!1 &950175645
 GameObject:
   m_ObjectHideFlags: 0
@@ -1214,10 +1280,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b47d374dd116ad408bf7f7e1a26b0c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weapons:
-  - {fileID: 1738830021}
-  - {fileID: 718727773}
-  - {fileID: 878176453}
+  weapons: []
+  playerNumber: 1
 --- !u!1 &1681371877
 GameObject:
   m_ObjectHideFlags: 0
@@ -1328,9 +1392,10 @@ GameObject:
   m_Component:
   - component: {fileID: 1738830023}
   - component: {fileID: 1738830022}
+  - component: {fileID: 1738830024}
   - component: {fileID: 1738830021}
   m_Layer: 0
-  m_Name: Weapon
+  m_Name: Purple
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1344,11 +1409,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1738830020}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1600bdf0e6265a141903cccfee952e46, type: 3}
+  m_Script: {fileID: 11500000, guid: ee1ba34040e721c46be9159d115e6c93, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WeaponName: Purple
-  bullet: {fileID: 1919936878330094, guid: 282172dca51faca419e253e8ed9e978c, type: 2}
+  WeaponName: PurpleBlaster
+  bullet: {fileID: 1919936878330094, guid: a183b7f8d88839d4ea0708973d8bbb50, type: 2}
 --- !u!212 &1738830022
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1408,6 +1473,31 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!61 &1738830024
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1738830020}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1, y: 1}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1}
+  m_EdgeRadius: 0
 --- !u!1 &1779367194
 GameObject:
   m_ObjectHideFlags: 0
@@ -1467,6 +1557,9 @@ MonoBehaviour:
   - tag: bullets
     prefab: {fileID: 1919936878330094, guid: 282172dca51faca419e253e8ed9e978c, type: 2}
     size: 200
+  - tag: BigBullets
+    prefab: {fileID: 1919936878330094, guid: a183b7f8d88839d4ea0708973d8bbb50, type: 2}
+    size: 10
 --- !u!4 &1915624439
 Transform:
   m_ObjectHideFlags: 0

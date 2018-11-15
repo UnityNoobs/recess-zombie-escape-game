@@ -384,7 +384,7 @@ InputManager:
     gravity: 1000
     dead: 0.001
     sensitivity: 1000
-    snap: 0
+    snap: 1
     invert: 0
     type: 0
     axis: 0
@@ -393,14 +393,14 @@ InputManager:
     m_Name: P2WeaponScroll
     descriptiveName: P2NextWeapon
     descriptiveNegativeName: P2PrevWeapon
-    negativeButton: ','
-    positiveButton: .
+    negativeButton: '-'
+    positiveButton: +
     altNegativeButton: 
     altPositiveButton: 
     gravity: 1000
     dead: 0.001
     sensitivity: 1000
-    snap: 0
+    snap: 1
     invert: 0
     type: 0
     axis: 0

@@ -54,8 +54,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 20
   direction: 1
-  impactForce: 80
-  distance: 0.5
+  impactForce: 50
+  distance: 0.4
   enemyTag: Enemy
   collisionLayer:
     serializedVersion: 2

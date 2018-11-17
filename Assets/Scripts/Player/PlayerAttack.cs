@@ -23,7 +23,9 @@ public class PlayerAttack : MonoBehaviour {
 	void Update () {
         if (Input.GetButtonDown(attackButton))
         {
-            if (playerInv.PlayerHasWeapon()) { playerInv.getCurrentWeapon().Fire(player.GetDirection(),gameObject.transform); }
+            if (playerInv.PlayerHasWeapon()) {
+                playerInv.getCurrentWeapon().Fire(player.GetDirection(),gameObject.transform);
+            }
         }
 	}
 

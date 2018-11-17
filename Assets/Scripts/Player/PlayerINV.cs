@@ -6,15 +6,34 @@ public class PlayerINV : MonoBehaviour {
     public List<Weapon> weapons = new List<Weapon>();
     public int playerNumber = 1;
     private int currentWeaponIndex = 0;
-	// Update is called once per frame
-	void Update () {
-		if(Input.GetAxis("P"+playerNumber+"WeaponScroll") > 0)
+    private bool buttonNextPressed = false;
+    private bool buttonPrevPressed = false;
+    private float axis;
+    // Update is called once per frame
+    void Update () {
+        // Next weapon
+        float axis = Input.GetAxis("P" + playerNumber + "WeaponScroll");
+
+        if (axis > 0 && !buttonNextPressed && PlayerHasWeapon())
         {
             currentWeaponIndex = NextWeaponIndex();
-        }
-        if (Input.GetAxis("P" + playerNumber + "WeaponScroll") < 0)
+            buttonNextPressed = true;
+        } 
+        // Previous weapon
+        if (axis < 0 && !buttonPrevPressed && PlayerHasWeapon())
         {
             currentWeaponIndex = PrevWeaponIndex();
+            buttonPrevPressed = true;
+        }
+        // Reset button flags
+        if (axis == 0 && buttonNextPressed)
+        {
+            buttonNextPressed = false;
+        }
+
+        if (axis == 0 && buttonPrevPressed)
+        {
+            buttonPrevPressed = false;
         }
     }
 
@@ -30,14 +49,7 @@ public class PlayerINV : MonoBehaviour {
 
     public bool PlayerHasWeapon()
     {
-        if (weapons.Count == 0)
-        {
-            return false;
-        }
-        else
-        {
-            return true;
-        }
+        return weapons.Count > 0;
     }
     public int NextWeaponIndex()
     {

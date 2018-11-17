@@ -58,7 +58,10 @@ MonoBehaviour:
   enemyTag: Enemy
   collisionLayer:
     serializedVersion: 2
-    m_Bits: 256
+    m_Bits: 768
+  impactForce: 80
+  impactDamage: 20
+  pushForce: 20
 --- !u!212 &212508686216414140
 SpriteRenderer:
   m_ObjectHideFlags: 1

@@ -1416,6 +1416,7 @@ GameObject:
   - component: {fileID: 1327243304}
   - component: {fileID: 1327243303}
   - component: {fileID: 1327243302}
+  - component: {fileID: 1327243309}
   - component: {fileID: 1327243307}
   - component: {fileID: 1327243308}
   m_Layer: 0
@@ -1586,6 +1587,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weapons: []
   playerNumber: 1
+--- !u!114 &1327243309
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1327243301}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 967c909bae908e64cb9f2953f18717f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 100
 --- !u!1 &1779367194
 GameObject:
   m_ObjectHideFlags: 0

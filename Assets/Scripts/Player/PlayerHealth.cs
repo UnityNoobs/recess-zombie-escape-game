@@ -5,41 +5,39 @@ using UnityEngine.UI;
 
 public class PlayerHealth : MonoBehaviour {
     [Header("Player Health")]
-    public float Health = 100f;
-    public Image healthLifeBar;
-
+    public float health = 100f;
+    private float playerHealth;
 
 	// Use this for initialization
-	void Start () {
-		
-
-
+	void Awake () {
+        // Cache initial health
+        playerHealth = health;
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		
 	}
-    public void TakeDamage(float amount)
+    public void HandleDamage(float amount)
     {
-        Health -= amount;
-        healthLifeBar.fillAmount = Health / 100f;
-        if(Health <= 0)
+        health -= amount;
+        // UI: healthLifeBar.fillAmount = Health / 100f;
+        if(health <= 0)
         {
-            Die();
-          
+          TriggerDeath();
         }
     }
 
-    public void OnTriggerEnter2D(Collider2D collision)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        if(collision.tag == "Enemy")
-        {
-            TakeDamage(20f);
+        if(collision.collider.CompareTag("Enemy"))
+        {    
+            // Enemy shoud handle this
         }
     }
-    private void Die()
+    private void TriggerDeath()
     {
         // Player Death Trigger + Animation
+        gameObject.SetActive(false);
     }
 }

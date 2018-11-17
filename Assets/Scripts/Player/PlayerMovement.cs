@@ -25,12 +25,14 @@ public class PlayerMovement : MonoBehaviour {
     private bool isGrounded = false;
     private float direction;
     private float jumpInput;
+    private PlayerINV playerInv;
 
     // Use this for initialization
     void Awake()
     {
         playerRb = GetComponent<Rigidbody2D>();
         sprite = GetComponent<SpriteRenderer>();
+        playerInv = GetComponent<PlayerINV>();
         sprite.flipX = !facingRight;
     }
 
@@ -85,5 +87,15 @@ public class PlayerMovement : MonoBehaviour {
     public float GetDirection()
     {
         return facingRight ? 1 : -1;
+    }
+
+    public void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.GetComponent<Weapon>() != null)
+        {
+            Weapon newWeapon = collision.GetComponent<Weapon>();
+            playerInv.addWeapon(newWeapon);
+            collision.gameObject.SetActive(false);
+        }
     }
 }

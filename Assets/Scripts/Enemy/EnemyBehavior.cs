@@ -4,8 +4,11 @@ using UnityEngine;
 
 public class EnemyBehavior : MonoBehaviour
 {
-    [Header("Life")]
+    [Header("Zombie Stats")]
     public float health = 100f;
+    public float damageVariance = 1f;
+    public float speedVariance = 1f;
+    public float sizeVariance = 1f;
 
     [Header("Respwan")]
     public bool facingRight = true;
@@ -18,6 +21,7 @@ public class EnemyBehavior : MonoBehaviour
     private Animator animator;
     private SpriteRenderer sprite;
     private float enemyHealth;
+    private float variance;
 
     private void Awake()
     {
@@ -49,7 +53,13 @@ public class EnemyBehavior : MonoBehaviour
 
     public void Restart()
     {
-        // Restore health
+        variance = ObjectPool.instance.gameObject.GetComponent<EnemyVariance>().variance;
+        //Reset and mutate Stats.
+        float healthVariance = 1 + Random.Range(0,variance);
+        health = enemyHealth * healthVariance;
+        Debug.Log("Health Variance is: " + healthVariance);
+        speedVariance = speedVariance * (1 +  Random.Range(0, variance));
+        Debug.LogFormat("Enemy being spawned with health: {0} and speed variance of {1}", health, speedVariance);
         rb.isKinematic = false;
         box.enabled = true;
         health = enemyHealth;

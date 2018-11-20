@@ -10,6 +10,8 @@ public class EnemyFollow : MonoBehaviour {
 
     [Range(0f, 10f)]
     public float distance = 1.4f;
+    [Range(0f, 1000f)]
+    public float distanceFollow = 1.4f;
 
     private float targetDirection = 0;
     private Vector3 origin;
@@ -19,6 +21,9 @@ public class EnemyFollow : MonoBehaviour {
     private EnemyState state;
     private Animator animator;
     private EnemyBehavior enemy;
+    private float initialSpeed;
+    private Color debugColor;
+    private Vector3 targetPosi;
 
 
     // Use this for initialization
@@ -30,37 +35,47 @@ public class EnemyFollow : MonoBehaviour {
         animator = GetComponent<Animator>();
         target = GameObject.FindGameObjectWithTag(targetName).transform;
         origin = transform.position;
+        initialSpeed = speed;
+        debugColor = Color.red;
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
+        Debug.DrawLine(transform.position, target.position, debugColor);
+        debugColor = Color.red;
+        speed = initialSpeed * enemy.speedVariance;
         // Follow player on axis x
+        bool attackRange = Vector3.Distance(transform.position, target.position) <= distance;
+        bool followRange = Vector3.Distance(transform.position, target.position) <= distanceFollow;
+        if (attackRange) { debugColor = Color.white; } else if (followRange) { debugColor = Color.green; }
+        if (state.CompareState("idle") && !attackRange && followRange){ state.SetState("follow"); }
         if (state.CompareState("follow"))
         {
-            bool foundTarget = Vector3.Distance(transform.position, target.position) <= distance;
-            // Ignore player if is jumping or in another platform
-            if (!foundTarget && target.position.y < transform.position.y)
+            // Ignore player if is jumping or in another platform. 
+            /*if (!foundTarget && target.position.y < transform.position.y)
             {
                 // Save last target position
                 lastTarget = target.position;
                 FollowTarget(lastTarget);
             }
-            else if (!foundTarget && !persistent && Vector3.Distance(transform.position, origin) > distance)
+            */ // Y of the player and Y of the enemies will quite often not be an exact match.
+            /*else*/ if (!attackRange && !persistent && Vector3.Distance(transform.position, origin) > distance)
             {
                 // Return to origin position
-                FollowTarget(origin);
-            } else if (persistent && !foundTarget && Vector3.Distance(transform.position, lastTarget) > distance)
+                targetPosi = origin;
+            } else if (persistent && !attackRange /*&& Vector3.Distance(transform.position, lastTarget) > distance*/)
             { 
             
                 // Go to last target position
-                FollowTarget(lastTarget);
+                targetPosi = lastTarget;
             }
 
-            if((foundTarget || rb.velocity.x == 0) && !state.CompareState("idle"))
+            if((attackRange || rb.velocity.x == 0) && !state.CompareState("idle"))
             {
                 state.SetState("idle");
             }
+            FollowTarget(targetPosi);
         }
     }
 

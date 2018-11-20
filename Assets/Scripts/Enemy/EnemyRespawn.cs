@@ -36,7 +36,7 @@ public class EnemyRespawn : MonoBehaviour
     private Transform GetRandomLocation()
     {
         int index = Random.Range(0, spwanPoints.Count);
-        Debug.Log(index);
+        Debug.Log("Enemy has spwaned at index: " + index);
         return spwanPoints[index];
     }
 

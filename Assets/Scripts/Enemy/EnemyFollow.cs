@@ -17,12 +17,17 @@ public class EnemyFollow : MonoBehaviour {
     private Transform target;
     private Rigidbody2D rb;
     private EnemyState state;
+    private Animator animator;
+    private EnemyBehavior enemy;
+
 
     // Use this for initialization
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         state = GetComponent<EnemyState>();
+        enemy = GetComponent<EnemyBehavior>();
+        animator = GetComponent<Animator>();
         target = GameObject.FindGameObjectWithTag(targetName).transform;
         origin = transform.position;
     }
@@ -51,6 +56,11 @@ public class EnemyFollow : MonoBehaviour {
                 // Go to last target position
                 FollowTarget(lastTarget);
             }
+
+            if((foundTarget || rb.velocity.x == 0) && !state.CompareState("idle"))
+            {
+                state.SetState("idle");
+            }
         }
     }
 
@@ -58,9 +68,11 @@ public class EnemyFollow : MonoBehaviour {
     {
         targetDirection = GetTargetDirection(newPosition);
         rb.velocity = new Vector2(targetDirection * speed, rb.velocity.y);
+        enemy.Flip(targetDirection);
+        state.SetState("follow");
     }
 
-    private float GetTargetDirection(Vector3 currentTarget)
+    public float GetTargetDirection(Vector3 currentTarget)
     {
         float x = transform.position.x;
         float targetX = currentTarget.x;

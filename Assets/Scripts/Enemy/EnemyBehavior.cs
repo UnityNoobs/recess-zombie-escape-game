@@ -53,7 +53,7 @@ public class EnemyBehavior : MonoBehaviour
 
     public void Restart()
     {
-        variance = ObjectPool.instance.gameObject.GetComponent<EnemyVariance>().variance;
+        variance = GameManager.instance.enemyVariance.variance;
         //Reset and mutate Stats.
         float healthVariance = 1 + Random.Range(0,variance);
         health = enemyHealth * healthVariance;

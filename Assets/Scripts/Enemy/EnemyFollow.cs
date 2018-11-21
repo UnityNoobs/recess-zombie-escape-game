@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EnemyFollow : MonoBehaviour {
     [Header("Follow options")]
-    public string targetName = "Player";
+    public bool followPlayer = true;
     public bool persistent = false;
     public float speed = 2f;
 
@@ -13,10 +13,13 @@ public class EnemyFollow : MonoBehaviour {
     [Range(0f, 1000f)]
     public float distanceFollow = 1.4f;
 
+    private float p1Distance; // Distance to Player 1
+    private float p2Distance; // Distance to Player 2, if they exist.
+    private int indexOfTargetPlayer;
+    private Transform target;
     private float targetDirection = 0;
     private Vector3 origin;
     private Vector3 lastTarget;
-    private Transform target;
     private Rigidbody2D rb;
     private EnemyState state;
     private Animator animator;
@@ -33,7 +36,6 @@ public class EnemyFollow : MonoBehaviour {
         state = GetComponent<EnemyState>();
         enemy = GetComponent<EnemyBehavior>();
         animator = GetComponent<Animator>();
-        target = GameObject.FindGameObjectWithTag(targetName).transform;
         origin = transform.position;
         initialSpeed = speed;
         debugColor = Color.red;
@@ -42,40 +44,75 @@ public class EnemyFollow : MonoBehaviour {
     // Update is called once per frame
     void FixedUpdate()
     {
+        speed = initialSpeed * enemy.speedVariance;
+        //Catch if there are no players.
+        p1Distance = Vector3.Distance(transform.position, GameManager.instance.players[0].transform.position);
+
+        //If we are in a one player game
+        if(GameManager.instance.players.Count == 1)
+        {
+            //If only 1 player, set distance to that player.
+            indexOfTargetPlayer = 0;
+        }
+        else if (GameManager.instance.players.Count > 1) // Two Players
+        {
+            //Save the index of the closer player.
+            p2Distance = Vector3.Distance(transform.position, GameManager.instance.players[1].transform.position);
+            indexOfTargetPlayer = p1Distance > p2Distance ? 0 : 1;
+        }
+        else // No players?! Something is horribly wrong.
+        {
+            Debug.Log("There are no players in the players array");
+            indexOfTargetPlayer = 2;
+        }
+        if(indexOfTargetPlayer != 2)
+        {
+            //Set target to the closer player
+            target = GameManager.instance.players[indexOfTargetPlayer].transform;
+        }
+        else
+        {
+            //Set target to self. So it shouldn't move.
+            target = transform;
+        }
         Debug.DrawLine(transform.position, target.position, debugColor);
         debugColor = Color.red;
-        speed = initialSpeed * enemy.speedVariance;
-        // Follow player on axis x
-        bool attackRange = Vector3.Distance(transform.position, target.position) <= distance;
-        bool followRange = Vector3.Distance(transform.position, target.position) <= distanceFollow;
-        if (attackRange) { debugColor = Color.white; } else if (followRange) { debugColor = Color.green; }
-        if (state.CompareState("idle") && !attackRange && followRange){ state.SetState("follow"); }
+        //If in attacking distance
+        if (Vector3.Distance(transform.position,target.position) < distance )
+        {
+            debugColor = Color.white;
+        }
+        //If in follow distance.
+        else if (Vector3.Distance(transform.position, target.position) < distanceFollow)
+        {
+            if (state.CompareState("idle"))
+            {
+                state.SetState("follow");
+            }
+            debugColor = Color.green;
+        }
+        //If too far away to follow
+        else
+        {
+            state.SetState("idle");
+        }
         if (state.CompareState("follow"))
         {
-            // Ignore player if is jumping or in another platform. 
-            /*if (!foundTarget && target.position.y < transform.position.y)
+            // Ignore player if is jumping or in another platform. Added some range incase the numbers aren't an exact match.
+            if (target.position.y -5 <= transform.position.y && target.position.y + 5 >= transform.position.y)
             {
                 // Save last target position
                 lastTarget = target.position;
                 FollowTarget(lastTarget);
             }
-            */ // Y of the player and Y of the enemies will quite often not be an exact match.
-            /*else*/ if (!attackRange && !persistent && Vector3.Distance(transform.position, origin) > distance)
+            else if (!persistent)
             {
                 // Return to origin position
-                targetPosi = origin;
-            } else if (persistent && !attackRange /*&& Vector3.Distance(transform.position, lastTarget) > distance*/)
-            { 
-            
-                // Go to last target position
-                targetPosi = lastTarget;
-            }
-
-            if((attackRange || rb.velocity.x == 0) && !state.CompareState("idle"))
+                FollowTarget(origin);
+            } else if (persistent)
             {
-                state.SetState("idle");
+                FollowTarget(lastTarget);
             }
-            FollowTarget(targetPosi);
         }
     }
 

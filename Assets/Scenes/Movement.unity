@@ -256,8 +256,7 @@ Prefab:
     - target: {fileID: 1732189350504340, guid: 60e38f2d4a543004e846ef0778c91e61, type: 2}
       propertyPath: m_Icon
       value: 
-      objectReference: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000,
-        type: 0}
+      objectReference: {fileID: 0}
     - target: {fileID: 114328135692169964, guid: 60e38f2d4a543004e846ef0778c91e61,
         type: 2}
       propertyPath: spwanPoints.Array.data[2]
@@ -674,7 +673,7 @@ GameObject:
   m_Layer: 0
   m_Name: respawnPoint_B
   m_TagString: Untagged
-  m_Icon: {fileID: -5442936267250999957, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -885,7 +884,7 @@ GameObject:
   m_Layer: 0
   m_Name: GroundCheck
   m_TagString: Untagged
-  m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -913,7 +912,7 @@ GameObject:
   m_Layer: 0
   m_Name: respawnPoint_A
   m_TagString: Untagged
-  m_Icon: {fileID: -5442936267250999957, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -984,6 +983,11 @@ Prefab:
     - target: {fileID: 4362551018567830, guid: cb122b13e902c00439437ab54d180f16, type: 2}
       propertyPath: m_LocalScale.z
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114137924303485100, guid: cb122b13e902c00439437ab54d180f16,
+        type: 2}
+      propertyPath: bulletTag
+      value: BigBullets
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cb122b13e902c00439437ab54d180f16, type: 2}
@@ -1506,7 +1510,7 @@ GameObject:
   m_Layer: 0
   m_Name: GroundCheck
   m_TagString: Untagged
-  m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -1533,6 +1537,7 @@ GameObject:
   - component: {fileID: 1915624439}
   - component: {fileID: 1915624438}
   - component: {fileID: 1915624440}
+  - component: {fileID: 1915624441}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -1588,6 +1593,20 @@ MonoBehaviour:
   variance: 0
   varianceIncrement: 0.01
   varianceFrequency: 2
+--- !u!114 &1915624441
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1915624437}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1850b05d902309b48b5817cbe237a58c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  players: []
+  objectPool: {fileID: 0}
+  enemyVariance: {fileID: 0}
 --- !u!1 &2045888397
 GameObject:
   m_ObjectHideFlags: 0

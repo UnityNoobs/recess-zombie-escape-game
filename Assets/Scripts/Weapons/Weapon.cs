@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Weapon : MonoBehaviour {
     public string WeaponName;
+    public string bulletTag = "bullets";
     public GameObject bullet;
     public virtual Weapon OnPickup()
     {
@@ -12,7 +13,7 @@ public class Weapon : MonoBehaviour {
 
     public virtual void Fire(float direction, Transform location)
     {
-        GameObject projectile = ObjectPool.instance.SpawnFromPool("bullets", location.position, location.rotation);
+        GameObject projectile = GameManager.instance.objectPool.SpawnFromPool(bulletTag, location.position, location.rotation);
         projectile.GetComponent<BulletMovement>().direction = direction;
     }
 }

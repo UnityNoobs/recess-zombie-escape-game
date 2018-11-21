@@ -34,6 +34,8 @@ public class PlayerMovement : MonoBehaviour {
         sprite = GetComponent<SpriteRenderer>();
         playerInv = GetComponent<PlayerINV>();
         sprite.flipX = !facingRight;
+        //Add the player to the list of players
+        GameManager.instance.players.Add(gameObject);
     }
 
     // Update is called once per frame

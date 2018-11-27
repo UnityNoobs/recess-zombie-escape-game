@@ -24,6 +24,7 @@ public class EnemyFollow : MonoBehaviour {
     private EnemyState state;
     private Animator animator;
     private EnemyBehavior enemy;
+    private EnemyAttak attack;
     private float initialSpeed;
     private Color debugColor;
     private Vector3 targetPosi;
@@ -36,6 +37,7 @@ public class EnemyFollow : MonoBehaviour {
         state = GetComponent<EnemyState>();
         enemy = GetComponent<EnemyBehavior>();
         animator = GetComponent<Animator>();
+        attack = GetComponent<EnemyAttak>();
         origin = transform.position;
         initialSpeed = speed;
         debugColor = Color.red;
@@ -58,7 +60,7 @@ public class EnemyFollow : MonoBehaviour {
         {
             //Save the index of the closer player.
             p2Distance = Vector3.Distance(transform.position, GameManager.instance.players[1].transform.position);
-            indexOfTargetPlayer = p1Distance > p2Distance ? 0 : 1;
+            indexOfTargetPlayer = p1Distance < p2Distance ? 0 : 1;
         }
         else // No players?! Something is horribly wrong.
         {
@@ -81,6 +83,7 @@ public class EnemyFollow : MonoBehaviour {
         if (Vector3.Distance(transform.position,target.position) < distance )
         {
             debugColor = Color.white;
+            attack.TriggerAttack(GameManager.instance.players[indexOfTargetPlayer]);
         }
         //If in follow distance.
         else if (Vector3.Distance(transform.position, target.position) < distanceFollow)

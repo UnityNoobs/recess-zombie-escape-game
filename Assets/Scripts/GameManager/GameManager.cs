@@ -16,9 +16,4 @@ public class GameManager : MonoBehaviour {
         players = new List<GameObject>();
     }
 
-    public void AddPlayer(GameObject player)
-    {
-        players.Add(player);
-    }
-
 }

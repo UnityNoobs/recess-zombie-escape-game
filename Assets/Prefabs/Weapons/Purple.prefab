@@ -79,6 +79,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   WeaponName: PurpleBlaster
+  bulletTag: BigBullets
   bullet: {fileID: 1919936878330094, guid: a183b7f8d88839d4ea0708973d8bbb50, type: 2}
 --- !u!212 &212273261422944182
 SpriteRenderer:

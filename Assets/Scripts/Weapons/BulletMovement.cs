@@ -27,7 +27,14 @@ public class BulletMovement : MonoBehaviour {
     public float pushForce = 10f;
 
     private EnemyBehavior targetEnemy;
+ 
 
+    private void Awake()
+    {
+       
+    }
+
+ 
     // Update is called once per frame
     void Update () {
         RaycastHit2D hit = Physics2D.Raycast(transform.position, transform.right * direction, distance, collisionLayer);
@@ -47,12 +54,23 @@ public class BulletMovement : MonoBehaviour {
         // Bullet movement
         transform.Translate(Vector2.right * direction * speed * Time.deltaTime );
     }
+ 
+    void OnEnable()
+    {
+       
+      
+   
+        Debug.Log("ACtive");
+    }
+
+ 
 
     public void DestroyBullet()
     {
         // Handle particles and effects..
         // Objects pooled cannot be destroyed, only set to inactive.
         // This is because the object is reused.
+    
         gameObject.SetActive(false);
     }
 }

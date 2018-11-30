@@ -26,6 +26,7 @@ public class PlayerMovement : MonoBehaviour {
     private float direction;
     private float jumpInput;
     private PlayerINV playerInv;
+    private Animator animator;
 
     // Use this for initialization
     void Awake()
@@ -33,8 +34,8 @@ public class PlayerMovement : MonoBehaviour {
         playerRb = GetComponent<Rigidbody2D>();
         sprite = GetComponent<SpriteRenderer>();
         playerInv = GetComponent<PlayerINV>();
+        animator = GetComponent<Animator>();
         sprite.flipX = !facingRight;
-        //Add the player to the list of players
     }
 
     void Start()
@@ -50,7 +51,7 @@ public class PlayerMovement : MonoBehaviour {
         // Handle movement
         direction = Input.GetAxis(movementInput);
         playerRb.velocity = new Vector2(direction * runSpeed, playerRb.velocity.y);
-        
+        animator.SetBool("run", direction != 0 ? true : false);
         // Handle jumping
         HandleJump();
 

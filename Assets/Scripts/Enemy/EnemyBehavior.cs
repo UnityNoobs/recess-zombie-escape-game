@@ -9,6 +9,7 @@ public class EnemyBehavior : MonoBehaviour
     public float damageVariance = 1f;
     public float speedVariance = 1f;
     public float sizeVariance = 1f;
+    public int scorePoint = 1;
 
     [Header("Respwan")]
     public bool facingRight = true;
@@ -38,7 +39,7 @@ public class EnemyBehavior : MonoBehaviour
 
     public void Start()
     {
-        StartCoroutine(Init(0.1f));
+        Restart();
     }
 
     public void HandleImpact(float impactDirection, float impactForce, float impactDamage)
@@ -53,23 +54,11 @@ public class EnemyBehavior : MonoBehaviour
 
     public void Restart()
     {
-        variance = GameManager.instance.enemyVariance.variance;
-        //Reset and mutate Stats.
-        float healthVariance = 1 + Random.Range(0,variance);
-        health = enemyHealth * healthVariance;
-        Debug.Log("Health Variance is: " + healthVariance);
-        speedVariance = speedVariance * (1 +  Random.Range(0, variance));
-        Debug.LogFormat("Enemy being spawned with health: {0} and speed variance of {1}", health, speedVariance);
-        rb.isKinematic = false;
-        box.enabled = true;
-        health = enemyHealth;
-        // Transition
-        state.SetState("start");
+      StartCoroutine(Init(1f));
     }
 
     public void Flip(float direction)
     {
-        // facingRight = direction < 0 ? sprite.flipX : !sprite.flipX;
         if (direction != 0f)
         {
             facingRight = direction < 0 ? false : true;
@@ -85,6 +74,7 @@ public class EnemyBehavior : MonoBehaviour
 
     private void TriggerDeath()
     {
+        ScoreSystem.instance.UpdateScore(scorePoint);
         StartCoroutine(DisableEnemy());
     }
 
@@ -108,8 +98,18 @@ public class EnemyBehavior : MonoBehaviour
 
     private IEnumerator Init(float waitTime)
     {
-        // Reset values
-        Restart();
+        variance = GameManager.instance.enemyVariance.variance;
+        //Reset and mutate Stats.
+        float healthVariance = 1 + Random.Range(0, variance);
+        health = enemyHealth * healthVariance;
+        Debug.Log("Health Variance is: " + healthVariance);
+        speedVariance = speedVariance * (1 + Random.Range(0, variance));
+        Debug.LogFormat("Enemy being spawned with health: {0} and speed variance of {1}", health, speedVariance);
+        rb.isKinematic = false;
+        box.enabled = true;
+        health = enemyHealth;
+        // Transition
+        state.SetState("start");
         // Wait some time before transition
         yield return new WaitForSeconds(waitTime);
         state.SetState("idle");

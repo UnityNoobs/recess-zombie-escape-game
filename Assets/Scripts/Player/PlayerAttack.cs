@@ -25,6 +25,7 @@ public class PlayerAttack : MonoBehaviour {
         {
             if (playerInv.PlayerHasWeapon()) {
                 playerInv.getCurrentWeapon().Fire(player.GetDirection(),gameObject.transform);
+                CameraShake.Shake(0.075f, 0.064f);
             }
         }
 	}

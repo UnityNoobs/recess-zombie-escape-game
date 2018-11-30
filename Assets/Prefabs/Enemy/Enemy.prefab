@@ -133,7 +133,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: abee62eb8b7527b46b6943e9d820d19f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 100
+  health: 50
   damageVariance: 1
   speedVariance: 1
   sizeVariance: 1
@@ -150,7 +150,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78cb934fe8fb40741bfab6669c0d7a45, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetName: Player
+  followPlayer: 1
   persistent: 1
   speed: 4
   distance: 1.3

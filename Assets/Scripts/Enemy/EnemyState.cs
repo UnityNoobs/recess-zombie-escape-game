@@ -82,7 +82,6 @@ public class EnemyState : MonoBehaviour
             // Select current state
             currentState = "follow";
             // Handle animations
-            animator.SetBool("Walk", true);
             animator.SetBool("Attack", false);
         }
     }

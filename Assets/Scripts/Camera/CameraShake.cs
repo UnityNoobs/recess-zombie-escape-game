@@ -3,56 +3,37 @@ using System.Collections;
 
 public class CameraShake : MonoBehaviour
 {
-    // Transform of the camera to shake. Grabs the gameObject's transform
-    // if null.
-    public Transform camTransform;
 
-    // How long the object should shake for.
-    public float shakeDuration = 0f;
-
-    // Amplitude of the shake. A larger value shakes the camera harder.
-    public float shakeAmount = 0.7f;
-    public float decreaseFactor = 1.0f;
-
-    Vector3 originalPos;
-
-
-    private void Start()
-    {
-        enabled = false;
-    }
-
+    private Vector3 _originalPos;
+    public static CameraShake _instance;
 
     void Awake()
     {
-        if (camTransform == null)
-        {
-            camTransform = GetComponent(typeof(Transform)) as Transform;
-        }
+        _originalPos = transform.localPosition;
+
+        _instance = this;
     }
 
-    void OnEnable()
+    public static void Shake(float duration, float amount)
     {
-        originalPos = camTransform.localPosition;
+        _instance.StopAllCoroutines();
+        _instance.StartCoroutine(_instance.cShake(duration, amount));
     }
 
-    void Update()
+    public IEnumerator cShake(float duration, float amount)
     {
-        EnableShake();
+        float endTime = Time.time + duration;
+
+        while (Time.time < endTime)
+        {
+            transform.localPosition = _originalPos + Random.insideUnitSphere * amount;
+
+            duration -= Time.deltaTime;
+
+            yield return null;
+        }
+
+        transform.localPosition = _originalPos;
     }
 
-    private void EnableShake()
-    {
-        if (shakeDuration > 0)
-        {
-            camTransform.localPosition = originalPos + Random.insideUnitSphere * shakeAmount;
-
-            shakeDuration -= Time.deltaTime * decreaseFactor;
-        }
-        else
-        {
-            shakeDuration = 0f;
-            camTransform.localPosition = originalPos;
-        }
-    }
 }
